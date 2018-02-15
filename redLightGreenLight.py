@@ -37,8 +37,8 @@ while True:
         current_state = "maintenance"
 
     # Create list of all colors w/counts in image
-    redLightColors = im.crop((370,135,380,148)).getcolors(im.size[0]*im.size[1])
-    greenLightColors = im.crop((393,135,405,148)).getcolors(im.size[0]*im.size[1])
+    redLightColors = im.crop((375,138,382,144)).getcolors(im.size[0]*im.size[1])
+    greenLightColors = im.crop((393,137,400,148)).getcolors(im.size[0]*im.size[1])
 
    
 
@@ -47,12 +47,14 @@ while True:
     red = (255,0,0)
     green = (0,255,0)
     # Test image color
+    path = "train/"
     if distance(avgColor(greenLightColors),green) < distance(avgColor(greenLightColors),black) and distance(avgColor(redLightColors),black) < distance(avgColor(redLightColors),red):
         print("Bridge is down")
 
         #this is where the file goes.
-        path = "train/"+str(time.time()).split(".")[0]+".jpg"
+        
         if current_state != "down":
+            path += "down_"+str(time.time()).split(".")[0]+".jpg"
             print("STATE CHANGE TO DOWN - THIS IS WHERE WE'D TWEET!")
             with open(jpg, 'rb') as f:
                 data = f.read()
@@ -61,12 +63,14 @@ while True:
             current_state = "down"
     elif distance(avgColor(redLightColors),red) < distance(avgColor(redLightColors),black) and distance(avgColor(greenLightColors),black) < distance(avgColor(greenLightColors),green):
         print("Bridge is up")
+        with open(jpg, 'rb') as f:
+            data = f.read()
+        with open(path, 'wb') as f:
+            f.write(data)        
         if current_state != "up":
+            path += "up_"+str(time.time()).split(".")[0]+".jpg"
             print("STATE CHANGE TO UP! - THIS IS WHERE WE'D TWEET")
-            with open(jpg, 'rb') as f:
-                data = f.read()
-            with open("down_"+path, 'wb') as f:
-                f.write(data)
+
             current_state = "up"
     else:
         print("I am experiencing a temporary episode of colorblindness")
