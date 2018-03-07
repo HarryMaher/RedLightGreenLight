@@ -1,9 +1,10 @@
 # FreBotBridge
 
-
 ##### *What?*
-A bot that uses convolutional neural networks to look at a traffic camera pointed at the
-Fremont Bridge and tweet the up-to-the-minute orientation of the Fremont Bridge. Is it up or down?
+A Twitter bot that uses convolutional neural networks to look at the Fremont Bridge *through the lens* of a local traffic camera and tweet the up-to-the-minute orientation of the Fremont Bridge. Is it up or down?
+
+##### *Who?*
+The Fremont Bridge. In Seattle.
 
 ##### *Why?*
 *not. Why not.
