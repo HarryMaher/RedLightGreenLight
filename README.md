@@ -15,4 +15,4 @@ Always. As long as there's a bridge.
 
 ##### *Where?*
 In Fremont, Seattle. At the bridge. The Fremont Bridge.\
-See: [@TwitterWillBeHere](http://twitter.com)
+See: [@BridgeInFremont](https://twitter.com/BridgeInFremont)

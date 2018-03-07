@@ -7,25 +7,27 @@ import time
 from PIL import Image
 
 
-current_state = "blah"  
+current_state = "down" 
 
-# Function to calculate average color
 def avgColor(colors):
-    r = g = b = denom = 0
+    """ Calculate average color """
+    r = g = denom = 0
     for i, j in colors:
         r += i*j[0]
         g += i*j[1]
-        b += i*j[2]
         denom += i
-    return (r/denom, g/denom, b/denom)
+    return (r/denom, g/denom)
 
-# Writes jpg to "path" file ("up/", "down/", 
-# or "unknown/") in the training folder.
+
 def filewrite(path):
+    """
+    Write jpg to "path" file ("up/", "down/", 
+    or "unknown/") in the training folder.
+    """
     with open(jpg, 'rb') as f:
         data = f.read()
     with open("train/"+path+str(time.time()).split(".")[0]+".jpg", 'wb') as f:
-        f.write(data) 
+        f.write(data)
 
 while True:
     # Download Image
@@ -42,11 +44,11 @@ while True:
         continue
 
     # Create list of all colors w/counts in image
-    green_light_center = (479, 125) # Change this to center of green stoplight when camera moves
-    red_light_center = (460, 125) # Same, but for red light, should just change x
+    green_light_center = (517, 141) # Change this to center of green stoplight when camera moves
+    red_light_center = (499, green_light_center[1]) # Same, but for red light, should just change x
 
-    green_light_colors = im.crop(((green_light_center[0]-3),(green_light_center[1]-3),(green_light_center[0]+3),(green_light_center[1]+3))).getcolors(im.size[0]*im.size[1])
-    red_light_colors = im.crop(((red_light_center[0]-3),(red_light_center[1]-3),(red_light_center[0]+3),(red_light_center[1]+3))).getcolors(im.size[0]*im.size[1])
+    green_light_colors = im.crop(((green_light_center[0]-2),(green_light_center[1]-2),(green_light_center[0]+2),(green_light_center[1]+2))).getcolors(im.size[0]*im.size[1])
+    red_light_colors = im.crop(((red_light_center[0]-2),(red_light_center[1]-2),(red_light_center[0]+2),(red_light_center[1]+2))).getcolors(im.size[0]*im.size[1])
    
     printout = "avgredlight color red:", avgColor(red_light_colors)[0], "avggreenlight color green:", avgColor(green_light_colors)[1]
 
