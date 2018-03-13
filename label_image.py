@@ -31,6 +31,12 @@ jpg = urllib.request.urlretrieve('https://www.seattle.gov/trafficcams/images/Wes
 
 # jpg = "test.jpg"
 
+def write_image():
+  with open(jpg, 'rb') as f:
+    data = f.read()
+  with open("train/unknown/"+str(time.time()).split(".")[0]+".jpg", 'wb') as f:
+    f.write(data)
+
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -75,6 +81,7 @@ def load_labels(label_file):
   return label
 
 def main():
+  jpg = urllib.request.urlretrieve('https://www.seattle.gov/trafficcams/images/Westlake_N_Dexter_NS.jpg', 'Westlake_N_Dexter_NS.jpg')[0] 
   file_name = jpg
   model_file = "retrained_graph.pb"
   label_file = "retrained_labels.txt"
@@ -144,7 +151,9 @@ def main():
   # for i in top_k:
   #   print(labels[i], results[i])
 
-  return {label: result for label, result in zip(labels,results)}
+  dict_of_labels = {label: result for label, result in zip(labels,results)}
+  print(dict_of_labels)
+  return dict_of_labels
 
 
 
